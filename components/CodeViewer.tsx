@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { X, Copy, Check, Terminal } from 'lucide-react';
 
