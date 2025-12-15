@@ -1,6 +1,7 @@
 import Groq from "groq-sdk";
 
-// نستخدم المفتاح مباشرة لتجنب أخطاء TypeScript مع process.env
+// هام: تم إزالة process.env لأنها تسبب فشل البناء (TypeScript لا يتعرف عليها هنا)
+// سنستخدم المفتاح مباشرة. في المشاريع الكبيرة نستخدم import.meta.env
 const API_KEY = "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";
 
 const groq = new Groq({
