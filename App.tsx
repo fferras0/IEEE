@@ -14,7 +14,6 @@ const App: React.FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
-  // Listen for language changes triggered by AccessibilityWidget
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -29,7 +28,6 @@ const App: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Handle Scroll for Back To Top Button
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 300) {
@@ -46,10 +44,8 @@ const App: React.FC = () => {
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('submitting');
-    // Simulate network request
     setTimeout(() => {
       setFormStatus('success');
-      // Reset after a delay
       setTimeout(() => setFormStatus('idle'), 3000);
     }, 1500);
   };
@@ -67,7 +63,6 @@ const App: React.FC = () => {
       emergingDesc: "Leading research in Quantum Computing, IoT, and Artificial Intelligence.",
       library: "Digital Library",
       libraryDesc: "Access to over 5 million documents in the IEEE Xplore digital library.",
-      // History Section
       historyTitle: "SYSTEM LEGACY",
       historySub: "ARCHIVED DATA LOGS",
       milestone1Year: "1884",
@@ -82,7 +77,6 @@ const App: React.FC = () => {
       milestone4Year: "2025",
       milestone4Title: "GLOBAL NETWORK",
       milestone4Desc: "The world's largest technical professional organization dedicated to advancing technology.",
-      // Mission Section
       missionTitle: "OUR MISSION",
       missionSub: "ADVANCING TECHNOLOGY FOR HUMANITY",
       missionDesc: "IEEE and its members inspire a global community to innovate for a better tomorrow through its more than 423,000 members in over 160 countries.",
@@ -90,7 +84,6 @@ const App: React.FC = () => {
       stat2: "Countries",
       stat3: "Conferences",
       stat4: "Standards",
-      // Team Section
       teamTitle: "SYSTEM ARCHITECTS",
       teamSub: "THE MINDS BEHIND THE GRID",
       role1: "Lead Architect",
@@ -101,7 +94,6 @@ const App: React.FC = () => {
       bio2: "Specializing in entanglement and superposition.",
       bio3: "Ensuring 99.999% uptime across the global mesh.",
       bio4: "Developing ethical synthetic consciousness.",
-      // Join/Vision Section
       joinTitle: "GLOBAL NEXUS",
       joinSub: "INITIATE MEMBERSHIP PROTOCOL",
       joinText1: "We are building the infrastructure for the next century. IEEE is not merely an organization; it is a collective intelligence engine powering the advancement of humanity.",
@@ -110,7 +102,6 @@ const App: React.FC = () => {
       joinBenefit2: "Professional Networking & Mentorship",
       joinBenefit3: "Discounts on Conferences & Certifications",
       joinBtn: "INITIALIZE ACCESS",
-      // Contact Section
       contactTitle: "SECURE TRANSMISSION",
       contactSub: "ESTABLISH UPLINK",
       labelName: "IDENTIFIER // NAME",
@@ -132,7 +123,6 @@ const App: React.FC = () => {
       emergingDesc: "ريادة الأبحاث في الحوسبة الكمومية، إنترنت الأشياء، والذكاء الاصطناعي.",
       library: "المكتبة الرقمية",
       libraryDesc: "الوصول إلى أكثر من 5 ملايين وثيقة في مكتبة IEEE الرقمية.",
-      // History Section
       historyTitle: "تاريخ النظام",
       historySub: "سجلات البيانات المؤرشفة",
       milestone1Year: "1884",
@@ -147,7 +137,6 @@ const App: React.FC = () => {
       milestone4Year: "2025",
       milestone4Title: "الشبكة العالمية",
       milestone4Desc: "أكبر منظمة مهنية فنية في العالم مكرسة لتعزيز التكنولوجيا.",
-      // Mission Section
       missionTitle: "رسالتنا",
       missionSub: "تعزيز التكنولوجيا من أجل الإنسانية",
       missionDesc: "تلهم IEEE وأعضاؤها مجتمعاً عالمياً للابتكار من أجل غد أفضل من خلال أكثر من 423,000 عضو في أكثر من 160 دولة.",
@@ -155,7 +144,6 @@ const App: React.FC = () => {
       stat2: "دولة",
       stat3: "مؤتمر",
       stat4: "معيار",
-      // Team Section
       teamTitle: "مهندسو النظام",
       teamSub: "العقول خلف الشبكة",
       role1: "كبير المهندسين",
@@ -166,7 +154,6 @@ const App: React.FC = () => {
       bio2: "مختص في التشابك والتراكب الكمي.",
       bio3: "ضمان استقرار الشبكة بنسبة 99.999٪ عالمياً.",
       bio4: "تطوير الوعي الاصطناعي الأخلاقي.",
-      // Join/Vision Section
       joinTitle: "الرابطة العالمية",
       joinSub: "بدء بروتوكول العضوية",
       joinText1: "نحن نبني البنية التحتية للقرن القادم. IEEE ليست مجرد منظمة؛ إنها محرك ذكاء جماعي يغذي تقدم البشرية.",
@@ -175,7 +162,6 @@ const App: React.FC = () => {
       joinBenefit2: "التواصل المهني والإرشاد",
       joinBenefit3: "خصومات على المؤتمرات والشهادات",
       joinBtn: "بدء الوصول",
-      // Contact Section
       contactTitle: "إرسال آمن",
       contactSub: "إنشاء اتصال",
       labelName: "المعرف // الاسم",
@@ -196,7 +182,6 @@ const App: React.FC = () => {
       <main>
         <Hero />
         
-        {/* ABOUT / FEATURES SECTION */}
         <section id="about" className="py-24 bg-neo-black scroll-mt-20">
             <div className="container mx-auto px-6">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16">
@@ -234,7 +219,6 @@ const App: React.FC = () => {
 
         <TechStream />
 
-        {/* MISSION SECTION */}
         <section id="mission" className="py-24 bg-neo-dark relative border-y border-neo-gray/5">
             <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none"></div>
              <div className="container mx-auto px-6 relative z-10">
@@ -284,7 +268,6 @@ const App: React.FC = () => {
             </div>
         </section>
 
-        {/* HISTORY SECTION */}
         <section id="history" className="py-24 bg-neo-black relative scroll-mt-20 overflow-hidden">
              <div className="absolute inset-0 bg-grid-bg opacity-10 pointer-events-none"></div>
              <div className="container mx-auto px-6 relative z-10">
@@ -324,7 +307,6 @@ const App: React.FC = () => {
              </div>
         </section>
 
-        {/* TEAM SECTION */}
         <section id="join" className="py-24 bg-neo-black relative scroll-mt-20">
              <div className="container mx-auto px-6">
                  <ScrollReveal>
@@ -355,7 +337,6 @@ const App: React.FC = () => {
              </div>
         </section>
 
-        {/* MARQUEE */}
         <div className="w-full bg-neo-blue py-2 overflow-hidden transform -rotate-1 scroll-mt-24">
             <div className="whitespace-nowrap animate-marquee flex gap-8 text-black font-bold font-mono">
                 {Array(10).fill(lang === 'en' ? "IEEE INNOVATION // ADVANCING TECHNOLOGY // FUTURE FORWARD // " : "IEEE ابتكار // تقدم تكنولوجي // نحو المستقبل // ").map((t, i) => (
@@ -364,7 +345,6 @@ const App: React.FC = () => {
             </div>
         </div>
 
-        {/* JOIN CALL TO ACTION */}
          <section className="py-24 bg-neo-blue/5 border-t border-neo-blue/10">
             <div className="container mx-auto px-6 max-w-4xl text-center">
                 <ScrollReveal>
@@ -387,7 +367,6 @@ const App: React.FC = () => {
 
         <NewsSection />
 
-        {/* CONTACT SECTION */}
         <section id="contact" className="py-24 bg-neo-dark relative border-t border-neo-gray/10">
            <div className="container mx-auto px-6 max-w-2xl">
               <ScrollReveal>
@@ -436,11 +415,10 @@ const App: React.FC = () => {
            </div>
         </section>
 
-        {/* FOOTER */}
         <footer className="bg-neo-dark pt-16 pb-8 border-t border-neo-gray/10">
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                   <div className="col-span-1 md:col-span-2">
+                   <div class="col-span-1 md:col-span-2">
                       <h2 className="text-2xl font-orbitron font-bold text-neo-white mb-4">IEEE</h2>
                       <p className="text-neo-gray max-w-sm mb-6">{content.globalDesc}</p>
                       <div className="flex gap-4">
@@ -457,15 +435,14 @@ const App: React.FC = () => {
                    </div>
                    <div>
                       <h4 className="font-bold text-neo-white mb-4 text-sm uppercase tracking-widest">Navigation</h4>
-<a href="#" className="hover:text-neo-blue transition-colors">&gt;&gt; {item}</a>
-                     {['Home', 'Societies', 'Conferences', 'Standards', 'Careers'].map(item => (
-        <li key={item}>
-            {/* تم استبدال >> بـ &gt;&gt; لمنع الخطأ */}
-            <a href="#" className="hover:text-neo-blue transition-colors">&gt;&gt; {item}</a>
-        </li>
-    ))}
-</ul>
-                   </ul>
+                      <ul className="space-y-2 text-neo-gray font-mono text-sm">
+                          {['Home', 'Societies', 'Conferences', 'Standards', 'Careers'].map(item => (
+                              <li key={item}>
+                                  {/* تم إصلاح الخطأ هنا */}
+                                  <a href="#" className="hover:text-neo-blue transition-colors">&gt;&gt; {item}</a>
+                              </li>
+                          ))}
+                      </ul>
                    </div>
                    <div>
                       <h4 className="font-bold text-neo-white mb-4 text-sm uppercase tracking-widest">Contact</h4>
@@ -476,7 +453,7 @@ const App: React.FC = () => {
                     <div className="flex flex-col md:flex-row gap-4 items-center mb-4 md:mb-0">
                        <p>&copy; 2025 IEEE. All rights reserved.</p>
                        <span className="hidden md:inline text-neo-blue/50">|</span>
-                       <p className="text-neo-blue animate-pulse">Made by Hussain</p>
+                       <p class="text-neo-blue animate-pulse">Made by Hussain</p>
                     </div>
                     <div className="flex gap-6">
                         <a href="#" className="hover:text-neo-white">Privacy Policy</a>
