@@ -1,8 +1,7 @@
 import Groq from "groq-sdk";
 
-// Make sure to set this in Netlify Environment Variables as GROQ_API_KEY
-// Ideally use: process.env.API_KEY || "your-fallback-key"
-const API_KEY = process.env.API_KEY || "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";
+// نستخدم المفتاح مباشرة لتجنب أخطاء TypeScript مع process.env
+const API_KEY = "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";
 
 const groq = new Groq({
   apiKey: API_KEY,
