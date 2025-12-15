@@ -460,10 +460,12 @@ const App: React.FC = () => {
 <ul className="space-y-2 text-neo-gray font-mono text-sm">
     {['Home', 'Societies', 'Conferences', 'Standards', 'Careers'].map(item => (
         <li key={item}>
+            {/* تم استبدال >> بـ &gt;&gt; لمنع الخطأ */}
             <a href="#" className="hover:text-neo-blue transition-colors">&gt;&gt; {item}</a>
         </li>
     ))}
-</ul></ul>
+</ul>
+                   </ul>
                    </div>
                    <div>
                       <h4 className="font-bold text-neo-white mb-4 text-sm uppercase tracking-widest">Contact</h4>
