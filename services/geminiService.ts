@@ -1,17 +1,18 @@
 import Groq from "groq-sdk";
 
-// قراءة المفتاح من البيئة
-const API_KEY = process.env.API_KEY;
-
-if (!API_KEY) {
-  console.error("API Key is missing!");
-}
+// Hardcoded key to ensure it is passed correctly. 
+// Note: In production, use process.env.API_KEY via Vite's define or .env files.
+const API_KEY = "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";
 
 // Initialize the Groq Client
 const groq = new Groq({
   apiKey: API_KEY,
-  dangerouslyAllowBrowser: true 
+  dangerouslyAllowBrowser: true // Enabled for client-side demo
 });
+
+export const generateTechConcept = async (topic: string) => {
+  try {
+    const completion = await groq.chat.completions.create({
       messages: [
         {
           role: "system",
