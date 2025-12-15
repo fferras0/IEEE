@@ -1,13 +1,13 @@
 import Groq from "groq-sdk";
 
-// ملاحظة: في بيئة الإنتاج يفضل استخدام process.env.API_KEY
-// لكن للتأكد من عمله الآن سنستخدم المفتاح الذي وضعته
+// استخدام مفتاح Groq الذي زودتنا به
+// ملاحظة: في المشاريع الحقيقية يفضل استخدام process.env.API_KEY
 const API_KEY = "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";
 
-// Initialize the Groq Client
+// تهيئة عميل Groq
 const groq = new Groq({
   apiKey: API_KEY,
-  dangerouslyAllowBrowser: true // Enabled for client-side demo
+  dangerouslyAllowBrowser: true // ضروري للعمل من المتصفح مباشرة في هذا العرض التوضيحي
 });
 
 export const generateTechConcept = async (topic: string) => {
@@ -46,10 +46,10 @@ export const generateTechConcept = async (topic: string) => {
   } catch (error: any) {
     console.error("Groq API Error:", error);
     
-    // Fallback in case of error
+    // Fallback في حال حدوث خطأ للحفاظ على عمل الموقع
     return {
          title: `SIMULATION: ${topic.toUpperCase()} PROTOCOL`,
-         description: `(Offline Mode) System utilizes advanced offline heuristics to optimize local grid performance.`,
+         description: `(Offline Mode) API access unavailable. System utilizes advanced offline heuristics.`,
          specs: ["Local Simulation", "Secure Sandbox", "Latency: 0ms"],
          impact: "Ensures operational continuity during network severance."
     };
@@ -58,7 +58,7 @@ export const generateTechConcept = async (topic: string) => {
 
 export const sendChatMessage = async (history: { role: string; parts: { text: string }[] }[], newMessage: string) => {
   try {
-    // Convert Gemini history format to Groq format
+    // تحويل صيغة المحادثة لتناسب Groq
     const groqHistory = history.map(msg => ({
       role: (msg.role === 'model' ? 'assistant' : 'user') as "assistant" | "user",
       content: msg.parts[0].text
