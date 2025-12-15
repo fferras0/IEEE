@@ -1,13 +1,12 @@
 import Groq from "groq-sdk";
 
-// استخدام مفتاح Groq الخاص بك (للتجربة المباشرة حالياً)
-// تأكد من وضعه في Netlify Environment Variables باسم GROQ_API_KEY لاحقاً
-const API_KEY = "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";
+// Make sure to set this in Netlify Environment Variables as GROQ_API_KEY
+// Ideally use: process.env.API_KEY || "your-fallback-key"
+const API_KEY = process.env.API_KEY || "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";
 
-// Initialize Groq
 const groq = new Groq({
   apiKey: API_KEY,
-  dangerouslyAllowBrowser: true // مطلوب للعمل من المتصفح
+  dangerouslyAllowBrowser: true 
 });
 
 export const generateTechConcept = async (topic: string) => {
@@ -42,7 +41,6 @@ export const generateTechConcept = async (topic: string) => {
     throw new Error("No data returned");
   } catch (error: any) {
     console.error("Groq API Error:", error);
-    // Fallback في حال حدوث خطأ
     return {
          title: `SIMULATION: ${topic.toUpperCase()} PROTOCOL`,
          description: `(Offline Mode) API access unavailable. System utilizes advanced offline heuristics.`,
