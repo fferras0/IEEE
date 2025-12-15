@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;500;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -61,112 +62,24 @@
       }
     </script>
     <style>
-      :root {
-        /* Dark Mode (Default) */
-        --bg-primary: #030305;
-        --bg-dark: #0a0a0f;
-        --bg-card: #11111a;
-        --text-primary: #ffffff;
-        --text-secondary: #8892b0;
-        --accent-blue: #00f0ff;
-        --font-scale: 1;
-      }
-
-      html.light {
-        /* Light Mode */
-        --bg-primary: #ffffff;
-        --bg-dark: #f1f5f9;
-        --bg-card: #f8fafc;
-        --text-primary: #0f172a;
-        --text-secondary: #475569;
-        --accent-blue: #0066ff;
-      }
-      
-      /* Accessibility Modes */
-      html.high-contrast {
-        --bg-primary: #000000;
-        --bg-dark: #000000;
-        --bg-card: #000000;
-        --text-primary: #ffff00;
-        --text-secondary: #00ff00;
-        --accent-blue: #00ffff;
-      }
-      
-      html.grayscale-mode {
-        filter: grayscale(100%);
-      }
-
-      html {
-        scroll-behavior: smooth;
-        font-size: calc(16px * var(--font-scale));
-      }
-      
-      body {
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
-        font-family: 'Rajdhani', sans-serif;
-        overflow-x: hidden;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-      
-      html[dir="rtl"] body {
-        font-family: 'Cairo', sans-serif;
-      }
-
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--bg-dark); 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #0055ff; 
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--accent-blue); 
-      }
-
-      /* Noise Overlay */
-      .noise-bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        pointer-events: none;
-        z-index: 50;
-        opacity: 0.03;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      }
-
-      /* Grid Background */
-      .grid-bg {
-        background-size: 50px 50px;
-        background-image: linear-gradient(to right, rgba(0, 85, 255, 0.05) 1px, transparent 1px),
-                          linear-gradient(to bottom, rgba(0, 85, 255, 0.05) 1px, transparent 1px);
-        mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-      }
+      :root { --bg-primary: #030305; --bg-dark: #0a0a0f; --bg-card: #11111a; --text-primary: #ffffff; --text-secondary: #8892b0; --accent-blue: #00f0ff; --font-scale: 1; }
+      html.light { --bg-primary: #ffffff; --bg-dark: #f1f5f9; --bg-card: #f8fafc; --text-primary: #0f172a; --text-secondary: #475569; --accent-blue: #0066ff; }
+      html.high-contrast { --bg-primary: #000000; --bg-dark: #000000; --bg-card: #000000; --text-primary: #ffff00; --text-secondary: #00ff00; --accent-blue: #00ffff; }
+      html.grayscale-mode { filter: grayscale(100%); }
+      html { scroll-behavior: smooth; font-size: calc(16px * var(--font-scale)); }
+      body { background-color: var(--bg-primary); color: var(--text-primary); font-family: 'Rajdhani', sans-serif; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
+      html[dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: var(--bg-dark); }
+      ::-webkit-scrollbar-thumb { background: #0055ff; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+      .noise-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+      .grid-bg { background-size: 50px 50px; background-image: linear-gradient(to right, rgba(0, 85, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 85, 255, 0.05) 1px, transparent 1px); mask-image: linear-gradient(to bottom, black 40%, transparent 100%); }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
-    "vite": "https://esm.sh/vite@^7.3.0",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "groq-sdk": "https://esm.sh/groq-sdk@^0.37.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
+  </head>
   <body>
     <div id="root"></div>
     <div class="noise-bg"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
