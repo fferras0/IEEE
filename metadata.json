@@ -1,5 +1,5 @@
 {
-  "name": "IEEE Neo-Horizon",
-  "description": "A futuristic, high-performance web experience showcasing IEEE innovations with a Neo-Brutalist aesthetic and Groq AI integration.",
+  "name": "Gemini Studio",
+  "description": "A unified interface for Gemini models featuring Chat, Vision, Imagine, and Grounded Search.",
   "requestFramePermissions": []
 }

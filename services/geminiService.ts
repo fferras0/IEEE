@@ -1,49 +1,45 @@
-import Groq from "groq-sdk";
+import { GoogleGenAI, Type } from "@google/genai";
 
-// هام: تم إزالة process.env لأنها تسبب فشل البناء (TypeScript لا يتعرف عليها هنا)
-// سنستخدم المفتاح مباشرة. في المشاريع الكبيرة نستخدم import.meta.env
-const API_KEY = "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";
-
-const groq = new Groq({
-  apiKey: API_KEY,
-  dangerouslyAllowBrowser: true 
-});
+const getAiClient = () => {
+  // Ensure the API key is retrieved from the environment variable
+  return new GoogleGenAI({ apiKey: process.env.API_KEY });
+};
 
 export const generateTechConcept = async (topic: string) => {
   try {
-    const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: `You are a futuristic technology architect for IEEE.
-          Return ONLY valid JSON with this structure:
-          {
-            "title": "Futuristic Name",
-            "description": "Tech description",
-            "specs": ["Spec 1", "Spec 2", "Spec 3"],
-            "impact": "Societal impact"
-          }`
-        },
-        {
-          role: "user",
-          content: `Generate a futuristic technology concept based on: "${topic}".`
+    const ai = getAiClient();
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: `Generate a futuristic technology concept based on the topic: "${topic}". 
+          Make it sound like a high-tech IEEE innovation from the year 2077. 
+          Use technical, neo-futuristic language.`,
+      config: {
+        systemInstruction: "You are a futuristic technology architect for IEEE. You design bleeding-edge concepts.",
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: Type.OBJECT,
+          properties: {
+            title: { type: Type.STRING, description: "A futuristic, cool name for the technology." },
+            description: { type: Type.STRING, description: "A compelling description of what the technology does." },
+            specs: { type: Type.ARRAY, items: { type: Type.STRING }, description: "List of 3 specifications." },
+            impact: { type: Type.STRING, description: "The societal impact of this technology." }
+          },
+          required: ["title", "description", "specs", "impact"],
         }
-      ],
-      model: "llama-3.3-70b-versatile",
-      response_format: { type: "json_object" },
-      temperature: 0.8,
+      }
     });
 
-    const content = completion.choices[0]?.message?.content;
-    if (content) {
-      return JSON.parse(content);
+    if (response.text) {
+      return JSON.parse(response.text);
     }
     throw new Error("No data returned");
   } catch (error: any) {
-    console.error("Groq API Error:", error);
+    console.error("Gemini API Error:", error);
+    
+    // Fallback logic
     return {
          title: `SIMULATION: ${topic.toUpperCase()} PROTOCOL`,
-         description: `(Offline Mode) API access unavailable. System utilizes advanced offline heuristics.`,
+         description: `(Offline Mode) API access denied or model unavailable. The ${topic} system utilizes advanced offline heuristics to optimize local grid performance without central server dependency.`,
          specs: ["Local Simulation", "Secure Sandbox", "Latency: 0ms"],
          impact: "Ensures operational continuity during network severance."
     };
@@ -52,26 +48,29 @@ export const generateTechConcept = async (topic: string) => {
 
 export const sendChatMessage = async (history: { role: string; parts: { text: string }[] }[], newMessage: string) => {
   try {
-    const groqHistory = history.map(msg => ({
-      role: (msg.role === 'model' ? 'assistant' : 'user') as "assistant" | "user",
-      content: msg.parts[0].text
-    }));
-
-    const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: "You are 'CORE-AI', the dedicated digital assistant for IEEE."
-        },
-        ...groqHistory,
-        { role: "user", content: newMessage }
-      ],
-      model: "llama-3.3-70b-versatile",
+    const ai = getAiClient();
+    
+    // Create a chat session with the history
+    const chat = ai.chats.create({
+      model: "gemini-2.5-flash",
+      history: history,
+      config: {
+        systemInstruction: `You are 'CORE-AI', the dedicated digital assistant for the IEEE Neo-Horizon platform. 
+          Your tone is professional, futuristic, and helpful. 
+          You assist users with questions about IEEE, engineering, and technology.
+          
+          CRITICAL INSTRUCTION:
+          - Detect the user's language automatically.
+          - If the user asks in Arabic, you MUST respond in Arabic.
+          - If the user asks in English, respond in English.
+          - Keep responses concise (under 50 words when possible) and technical.`
+      }
     });
 
-    return completion.choices[0]?.message?.content || "";
+    const response = await chat.sendMessage({ message: newMessage });
+    return response.text || "";
   } catch (error: any) {
     console.error("Chat API Error:", error);
-    return "CONNECTION_ERROR: UNABLE TO ESTABLISH LINK WITH CORE-AI.";
+    return "SYSTEM ALERT: CONNECTION INSTABILITY. \n\nI am currently operating in limited offline mode. Please check neural link configuration.";
   }
 };
