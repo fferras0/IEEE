@@ -7,7 +7,7 @@ import { NeoCard } from './components/ui/NeoCard';
 import { ScrollReveal } from './components/ui/ScrollReveal';
 import { AccessibilityWidget } from './components/AccessibilityWidget';
 import { Chatbot } from './components/Chatbot';
-import { Globe, Shield, Zap, Database, ArrowUp, Users, Target, History, Mail, Send, CheckCircle, Github } from 'lucide-react';
+import { Globe, Shield, Zap, Database, ArrowUp, Users, Target, History, Mail, Send, CheckCircle, Github, ChevronRight } from 'lucide-react';
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<'en' | 'ar'>('en');
@@ -23,20 +23,12 @@ const App: React.FC = () => {
         }
       });
     });
-
     observer.observe(document.documentElement, { attributes: true });
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowBackToTop(true);
-      } else {
-        setShowBackToTop(false);
-      }
-    };
-
+    const handleScroll = () => setShowBackToTop(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -181,7 +173,6 @@ const App: React.FC = () => {
       <Navbar />
       <main>
         <Hero />
-        
         <section id="about" className="py-24 bg-neo-black scroll-mt-20">
             <div className="container mx-auto px-6">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16">
@@ -195,7 +186,6 @@ const App: React.FC = () => {
                         {content.sector}<br/>{content.subtitle}
                     </p>
                 </div>
-                
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {[
                         { title: content.globalConn, desc: content.globalDesc, icon: <Globe className="w-8 h-8 text-neo-blue"/> },
@@ -438,8 +428,10 @@ const App: React.FC = () => {
                       <ul className="space-y-2 text-neo-gray font-mono text-sm">
                           {['Home', 'Societies', 'Conferences', 'Standards', 'Careers'].map(item => (
                               <li key={item}>
-                                  {/* تم إصلاح الخطأ هنا */}
-                                  <a href="#" className="hover:text-neo-blue transition-colors">&gt;&gt; {item}</a>
+                                  <a href="#" className="hover:text-neo-blue transition-colors flex items-center gap-1">
+                                      <ChevronRight className="w-3 h-3 text-neo-blue" />
+                                      {item}
+                                  </a>
                               </li>
                           ))}
                       </ul>
@@ -453,7 +445,7 @@ const App: React.FC = () => {
                     <div className="flex flex-col md:flex-row gap-4 items-center mb-4 md:mb-0">
                        <p>&copy; 2025 IEEE. All rights reserved.</p>
                        <span className="hidden md:inline text-neo-blue/50">|</span>
-                       <p class="text-neo-blue animate-pulse">Made by Hussain</p>
+                       <p className="text-neo-blue animate-pulse">Made by Hussain</p>
                     </div>
                     <div className="flex gap-6">
                         <a href="#" className="hover:text-neo-white">Privacy Policy</a>
