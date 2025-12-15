@@ -1,13 +1,13 @@
 import Groq from "groq-sdk";
 
-// استخدام مفتاح Groq الذي زودتنا به
-// ملاحظة: في المشاريع الحقيقية يفضل استخدام process.env.API_KEY
+// استخدام مفتاح Groq الخاص بك (للتجربة المباشرة حالياً)
+// تأكد من وضعه في Netlify Environment Variables باسم GROQ_API_KEY لاحقاً
 const API_KEY = "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";
 
-// تهيئة عميل Groq
+// Initialize Groq
 const groq = new Groq({
   apiKey: API_KEY,
-  dangerouslyAllowBrowser: true // ضروري للعمل من المتصفح مباشرة في هذا العرض التوضيحي
+  dangerouslyAllowBrowser: true // مطلوب للعمل من المتصفح
 });
 
 export const generateTechConcept = async (topic: string) => {
@@ -16,21 +16,18 @@ export const generateTechConcept = async (topic: string) => {
       messages: [
         {
           role: "system",
-          content: `You are a futuristic technology architect for IEEE. You design bleeding-edge concepts.
-          Return a JSON object with the following structure:
+          content: `You are a futuristic technology architect for IEEE.
+          Return ONLY valid JSON with this structure:
           {
-            "title": "A futuristic, cool name for the technology.",
-            "description": "A compelling description of what the technology does.",
+            "title": "Futuristic Name",
+            "description": "Tech description",
             "specs": ["Spec 1", "Spec 2", "Spec 3"],
-            "impact": "The societal impact of this technology."
-          }
-          Ensure the response is valid JSON only.`
+            "impact": "Societal impact"
+          }`
         },
         {
           role: "user",
-          content: `Generate a futuristic technology concept based on the topic: "${topic}". 
-          Make it sound like a high-tech IEEE innovation from the year 2077. 
-          Use technical, neo-futuristic language.`
+          content: `Generate a futuristic technology concept based on: "${topic}".`
         }
       ],
       model: "llama-3.3-70b-versatile",
@@ -45,8 +42,7 @@ export const generateTechConcept = async (topic: string) => {
     throw new Error("No data returned");
   } catch (error: any) {
     console.error("Groq API Error:", error);
-    
-    // Fallback في حال حدوث خطأ للحفاظ على عمل الموقع
+    // Fallback في حال حدوث خطأ
     return {
          title: `SIMULATION: ${topic.toUpperCase()} PROTOCOL`,
          description: `(Offline Mode) API access unavailable. System utilizes advanced offline heuristics.`,
@@ -58,7 +54,6 @@ export const generateTechConcept = async (topic: string) => {
 
 export const sendChatMessage = async (history: { role: string; parts: { text: string }[] }[], newMessage: string) => {
   try {
-    // تحويل صيغة المحادثة لتناسب Groq
     const groqHistory = history.map(msg => ({
       role: (msg.role === 'model' ? 'assistant' : 'user') as "assistant" | "user",
       content: msg.parts[0].text
@@ -68,8 +63,7 @@ export const sendChatMessage = async (history: { role: string; parts: { text: st
       messages: [
         {
           role: "system",
-          content: `You are 'CORE-AI', the dedicated digital assistant for the IEEE Neo-Horizon platform. 
-          Your tone is professional, futuristic, and helpful.`
+          content: "You are 'CORE-AI', the dedicated digital assistant for IEEE."
         },
         ...groqHistory,
         { role: "user", content: newMessage }
