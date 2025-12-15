@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Cpu, Code, Sun, Moon, Github } from 'lucide-react';
+import { Menu, X, Cpu, Code, Sun, Moon } from 'lucide-react';
 import { CodeViewer } from './CodeViewer';
 
 export const Navbar: React.FC = () => {
@@ -123,18 +124,6 @@ export const Navbar: React.FC = () => {
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
 
-            {/* GitHub Link */}
-            <a 
-              href="https://github.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="p-2 text-neo-gray hover:text-neo-blue transition-colors"
-              aria-label="GitHub Repository"
-              title="GitHub Repository"
-            >
-              <Github className="w-5 h-5" />
-            </a>
-
             {/* Source Code Button */}
             <button 
               onClick={() => setIsCodeOpen(true)}
@@ -160,15 +149,6 @@ export const Navbar: React.FC = () => {
             >
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
-            <a 
-              href="https://github.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-neo-gray hover:text-neo-blue"
-              aria-label="GitHub Repository"
-            >
-              <Github className="w-5 h-5" />
-            </a>
             <button 
               onClick={() => setIsCodeOpen(true)}
               className="text-neo-gray hover:text-neo-blue"
